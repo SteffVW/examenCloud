@@ -4,14 +4,19 @@ on:
     - main
     
 jobs:
-  - name: Checkout code
-    uses: actions/checkout@master
   - name: Update diagram
+    id: make_diagram
     uses: githubocto/repo-visualizer@0.7.1
     with:
-      output_file: "images/diagram.svg"
-      excluded_paths: "dist,node_modules"
+      output_file: "output-diagram.svg"
+      artifact_name: "my-diagram"
       should_push: false
+  - name: Get artifact
+    uses: actions/download-artifact@v2
+    with:
+      name: "my-diagram"
+      path: "downloads"
+      
     
 
     
